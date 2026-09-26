@@ -1,0 +1,93 @@
+{
+  "negocio": "Sol Querandí",
+  "claim": "Donde la naturaleza, la tranquilidad y el sonido del mar son los únicos testigos",
+  "logo": "assets/logo.png",
+  "colores": {
+    "primario": "#DD6E2E",
+    "secundario": "#E4CFAE",
+    "fondo": "#12100F",
+    "texto": "#F5EFE7"
+  },
+  "tipografias": {
+    "titulos": "Fraunces",
+    "texto": "Inter"
+  },
+  "contacto": {
+    "tel": "",
+    "whatsapp": "",
+    "email": "solquerandi@gmail.com",
+    "direccion": "Santa Elena 174, Parque Lago, Mar de Cobo, Buenos Aires, Argentina",
+    "coordenadas": "-37.76861, -57.44656",
+    "horario": "Check-in sin restricción de horario",
+    "instagram": "https://www.instagram.com/solquerandi/",
+    "facebook": "https://www.facebook.com/solquerandi",
+    "nota_telefono": "La web original NO publica teléfono ni WhatsApp en ninguna parte. Solo un formulario de contacto y el email. No se inventa ningún número: hay un hueco marcado en index.html para pegarlo en cuanto el dueño lo facilite."
+  },
+  "cabanas": [
+    {
+      "nombre": "Antú",
+      "personas": "6",
+      "descripcion": "Suite matrimonial muy amplia con baño completo y balcón con vista al mar y a la costa norte hasta Mar Chiquita. Una habitación para dos personas, un sofá cama y una cama plegable. Otro baño completo en planta baja. Cocina equipada a full, comedor, dos televisores Smart de 32\", WiFi y DirecTV. Jardín con parrilla techada, mesa de madera con bancos y sillones para reposar con mesa matera. Pérgola para dejar el vehículo a la sombra y al resguardo de la intemperie.",
+      "fotos": ["Antu1", "Antu2", "Antu3", "Antu4", "Antu5", "Antu6", "Antu7", "AntuCard"]
+    },
+    {
+      "nombre": "Cuyen",
+      "personas": "6",
+      "descripcion": "Suite matrimonial muy amplia con baño completo y balcón con vista al mar y a la costa norte hasta Mar Chiquita. Una habitación para dos personas, un sofá cama y una cama plegable. Otro baño completo en planta baja. Cocina equipada a full, comedor, dos televisores Smart de 32\", WiFi y DirecTV. Jardín con parrilla techada, mesa de madera con bancos y sillones para reposar con mesa matera. Pérgola para dejar el vehículo a la sombra y al resguardo de la intemperie.",
+      "fotos": ["Cuyen1", "Cuyen2", "Cuyen3", "Cuyen4", "Cuyen5", "Cuyen6", "Cuyen7", "Cuyen8", "Cuyen9", "Cuyen10", "CuyenCard"]
+    },
+    {
+      "nombre": "Saráh",
+      "personas": "4",
+      "descripcion": "Un dormitorio muy amplio con cama King de 1,60 m. Un baño completo. Dos camas cuchetas, con posibilidad de agregar una cama plegable. Cocina equipada a full con cocina eléctrica, microondas, cafetera, pava eléctrica y tostadora, todo a estrenar, mesa circular con sillas, TV Smart de 32\" con WiFi y DirecTV. Patio cerrado con jardín, parrilla, mesa con bancos y sillones con mesa matera. Acceso independiente y pérgola para estacionar el vehículo.",
+      "fotos": ["Sarah1", "Sarah2", "Sarah3", "Sarah4", "Sarah5", "Sarah6", "Sarah7", "SarahCard"]
+    }
+  ],
+  "servicios": [
+    "Vista al mar",
+    "Vista a la playa",
+    "Frente a la costa",
+    "Patio o balcón privado",
+    "Cocina y comedor equipados",
+    "Parrilla techada y mesa matera",
+    "WiFi y DirecTV",
+    "TV Smart HD de 32\"",
+    "Calefacción",
+    "Ventilador de techo",
+    "Pérgola para estacionar",
+    "Extintor de incendios",
+    "Check-in sin restricción de horario",
+    "Limpieza disponible durante la estadía",
+    "Disponible para estadías largas",
+    "Ropa blanca incluida"
+  ],
+  "pruebas_sociales": [
+    "9,7 sobre 10 — Booking.com Traveller Review Awards 2023",
+    "Índice de respuesta: 100%",
+    "Tiempo de respuesta: en pocas horas"
+  ],
+  "historia": "Sol Querandí está emplazada frente a la reserva que forma parte de la albufera de Mar Chiquita, patrimonio de la Unesco. A pasos de la playa, entre naturaleza, sol y mucha paz. Estamos siempre a disposición del huésped, con servicio de limpieza antes del ingreso y ropa blanca.",
+  "ubicacion_datos": [
+    { "dato": "100 m", "que": "de la playa" },
+    { "dato": "4 km", "que": "de playa que une Parque Lago con Mar Chiquita" },
+    { "dato": "700 m", "que": "del centro de Mar de Cobo" },
+    { "dato": "5 km", "que": "de Mar Chiquita" },
+    { "dato": "30 km", "que": "de Mar del Plata" },
+    { "dato": "75 km", "que": "de Villa Gesell" }
+  ],
+  "entorno": "Parque Lago es un lugar privilegiado donde la naturaleza, la tranquilidad y el sonido del mar son los únicos testigos. La playa de 4 km que une Parque Lago con Mar Chiquita se puede recorrer a pie o en vehículo: es un lugar especial para tomar sol, pescar y hacer deportes como kayak, surf o kite. A 700 m está el centro de Mar de Cobo, con supermercados, panaderías y cervecerías. Y si se busca más movimiento, a 30 km está Mar del Plata, con espectáculos, teatro, recitales y gastronomía.",
+  "actividades": ["Tomar sol", "Pescar", "Kayak", "Surf", "Kite"],
+  "eventos": [],
+  "premios": ["Booking.com Traveller Review Awards 2023 — 9,7/10"],
+  "resenas": [],
+  "mapa_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.914282405493!2d-57.4465628232675!3d-37.76860803145999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9584cdbec543a0b1%3A0xa1da46a65f54edd5!2sSol%20Querandi%2C%20Bed%20and%20Breakfast!5e0!3m2!1ses-419!2sar!4v1699541031806!5m2!1ses-419!2sar",
+  "hallazgos_tecnicos": [
+    "La web es una app React (Create React App): el HTML llega vacío y todo lo pinta JavaScript. Google y las redes ven una página en blanco.",
+    "El icono de la app (logo192.png) sigue siendo el logo por defecto de React: nunca lo reemplazaron.",
+    "La imagen social (og:image) es la tarjeta personal del desarrollador de la plantilla, 'Hashir Shoaib'. Es lo que se ve al compartir el enlace por WhatsApp o Facebook.",
+    "El idioma declarado del sitio es inglés (lang='en') aunque todo el contenido está en español.",
+    "No hay teléfono ni WhatsApp en ninguna parte del sitio.",
+    "La paleta son los colores por defecto de Bootstrap (azul #0d6efd): cero identidad de marca.",
+    "El pie dice 'Copyright © 2023', delatando que la web lleva sin tocarse desde entonces."
+  ]
+}
