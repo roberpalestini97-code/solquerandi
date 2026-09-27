@@ -329,6 +329,20 @@ h2 em{font-style:normal;color:var(--mk-primario);font-weight:500}
 .faq-item h3{font-family:var(--display);font-weight:500;font-size:clamp(1.02rem,2.6vw,1.2rem);margin:0 0 .5rem}
 .faq-item p{margin:0;color:#EFE6DA;font-size:clamp(.92rem,2.3vw,1rem);max-width:64ch}
 
+/* ---------- AVISO DE COOKIES (GA4 solo si aceptan) ---------- */
+.sq-cookies{
+  position:fixed;left:0;right:0;bottom:0;z-index:10000;
+  display:none;gap:1rem;align-items:center;flex-wrap:wrap;
+  padding:1rem clamp(1rem,4vw,1.6rem);
+  background:rgba(12,10,9,.96);border-top:1px solid rgba(245,239,231,.16);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 -12px 40px rgba(0,0,0,.45);
+}
+.sq-cookies.sq-show{display:flex}
+.sq-cookies p{margin:0;flex:1 1 220px;font-size:clamp(.82rem,2.2vw,.95rem);color:#EFE6DA;line-height:1.45;max-width:52ch}
+.sq-cookies-actions{display:flex;gap:.55rem;flex-wrap:wrap}
+.sq-cookies .btn{cursor:pointer;border:0;font-family:inherit}
+
 /* Menos movimiento del sistema: sigue siendo slide a slide (sticky),
    sin vuelo 3D. Anula el colapso a documento apilado de motion.css. */
 @media(prefers-reduced-motion:reduce){
@@ -830,6 +844,92 @@ h2 em{font-style:normal;color:var(--mk-primario);font-weight:500}
   document.querySelectorAll(".mk-zshot").forEach(function(s){
     mo.observe(s, { attributes:true, attributeFilter:["data-live"] });
   });
+})();
+</script>
+
+<!-- Aviso de cookies + GA4 (solo si aceptan) + eventos de contacto -->
+<div id="sq-cookies" class="sq-cookies" role="dialog" aria-live="polite" aria-label="Cookies">
+  <p>Usamos cookies de medición para saber si la web ayuda a reservar. Podés aceptar o seguir solo con lo necesario.</p>
+  <div class="sq-cookies-actions">
+    <button type="button" class="btn btn-ghost" id="sq-cookies-no">Solo necesarias</button>
+    <button type="button" class="btn btn-solid" id="sq-cookies-yes">Aceptar</button>
+  </div>
+</div>
+<script>
+(function () {
+  "use strict";
+  // Pegá acá el ID de Google Analytics (Medición → G-XXXXXXXXXX)
+  var GA_ID = "G-XXXXXXXXXX";
+  var KEY = "sq_cookies";
+  var banner = document.getElementById("sq-cookies");
+  var choice = null;
+  try { choice = localStorage.getItem(KEY); } catch (e) {}
+
+  function loadGA() {
+    if (!GA_ID || GA_ID.indexOf("XXXX") !== -1) return;
+    if (window.gtag) return;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { dataLayer.push(arguments); };
+    gtag("js", new Date());
+    gtag("config", GA_ID, { anonymize_ip: true });
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_ID);
+    document.head.appendChild(s);
+  }
+
+  function hideBanner() {
+    if (banner) banner.classList.remove("sq-show");
+  }
+
+  function accept() {
+    try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    hideBanner();
+    loadGA();
+  }
+
+  function decline() {
+    try { localStorage.setItem(KEY, "0"); } catch (e) {}
+    hideBanner();
+  }
+
+  if (choice === "1") {
+    loadGA();
+  } else if (choice !== "0" && banner) {
+    banner.classList.add("sq-show");
+  }
+
+  var yes = document.getElementById("sq-cookies-yes");
+  var no = document.getElementById("sq-cookies-no");
+  if (yes) yes.addEventListener("click", accept);
+  if (no) no.addEventListener("click", decline);
+
+  function ubicacion(el) {
+    if (el.closest(".bar")) return "barra";
+    if (el.closest(".mk-film")) return "pelicula";
+    if (el.closest(".pie")) return "pie";
+    if (el.closest(".resenas")) return "resenas";
+    if (el.closest(".faq")) return "faq";
+    return "otro";
+  }
+
+  document.addEventListener("click", function (ev) {
+    var a = ev.target.closest && ev.target.closest("a[href]");
+    if (!a) return;
+    var href = (a.getAttribute("href") || "").toLowerCase();
+    var name = null;
+    if (href.indexOf("wa.me") !== -1 || href.indexOf("whatsapp") !== -1) name = "click_whatsapp";
+    else if (href.indexOf("mailto:") === 0) name = "click_email";
+    else if (href.indexOf("instagram.com") !== -1) name = "click_instagram";
+    if (!name) return;
+    if (typeof window.gtag === "function") {
+      gtag("event", name, {
+        event_category: "contacto",
+        event_label: ubicacion(a),
+        ubicacion: ubicacion(a)
+      });
+    }
+  }, true);
 })();
 </script>
 </body>
