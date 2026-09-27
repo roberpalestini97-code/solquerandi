@@ -120,11 +120,12 @@
   --bar:66px;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+/* auto: el smooth pelea con la rueda y baja FPS en la película */
+html{scroll-behavior:auto}
 body{
   margin:0;background:var(--mk-fondo);color:var(--mk-texto);
   font-family:var(--sans);line-height:1.6;
-  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  overflow-x:clip;-webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;display:block}
 a{color:inherit}
@@ -166,16 +167,26 @@ a{color:inherit}
    orden del documento, con lo que el plano lejano acaba tapando al que
    esta en foco. Como la camara siempre avanza hacia indices mayores, el
    plano con --zi mas bajo es el mas cercano y debe ir delante. */
-.mk-zshot{z-index:calc(100 - var(--zi))}
+.mk-zshot{z-index:calc(100 - var(--zi));will-change:auto;visibility:hidden}
+.mk-zshot[data-near],.mk-zshot[data-live]{visibility:visible;will-change:transform,opacity}
+
+/* Niebla barata: velo oscuro en vez de filter:brightness (caro cada frame) */
+.mk-zfog{filter:none !important}
+.z-bg::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:#000;
+  opacity:clamp(0,calc(var(--f, 0) * -0.22),0.45);
+}
 
 .z-bg{position:absolute;inset:0;margin:0;overflow:hidden}
 /* Fondo opaco para los planos que son solo texto: si no, se transparenta
    el plano que viene detras y los dos textos se pisan. */
 .z-bg.liso{background:radial-gradient(ellipse 78% 62% at 50% 38%,#241A13 0%,#16120F 58%,var(--mk-fondo) 100%)}
 .z-bg.liso::after{display:none}
+.z-bg.liso::before{display:none}
 .z-bg img{width:100%;height:100%;object-fit:cover}
 .z-bg::after{
-  content:"";position:absolute;inset:0;
+  content:"";position:absolute;inset:0;z-index:2;
   background:linear-gradient(180deg,rgba(18,16,15,.66) 0%,rgba(18,16,15,.4) 38%,rgba(18,16,15,.82) 100%);
 }
 .z-bg.suave::after{background:linear-gradient(180deg,rgba(18,16,15,.5),rgba(18,16,15,.72))}
@@ -318,11 +329,22 @@ h2 em{font-style:normal;color:var(--mk-primario);font-weight:500}
 .faq-item h3{font-family:var(--display);font-weight:500;font-size:clamp(1.02rem,2.6vw,1.2rem);margin:0 0 .5rem}
 .faq-item p{margin:0;color:#EFE6DA;font-size:clamp(.92rem,2.3vw,1rem);max-width:64ch}
 
-/* Modo sin animaciones: la pelicula se lee como documento normal */
+/* Menos movimiento del sistema: sigue siendo slide a slide (sticky),
+   sin vuelo 3D. Anula el colapso a documento apilado de motion.css. */
 @media(prefers-reduced-motion:reduce){
   .flota{display:none}
-  .mk-zshot{padding:clamp(2rem,7vw,4rem) 0;border-bottom:1px solid rgba(245,239,231,.09)}
-  .z-body{padding-top:1rem}
+  .mk-film{height:calc(var(--mk-shots, 8) * 120vh) !important}
+  .mk-film-stage{
+    position:sticky !important;top:0 !important;
+    height:100vh !important;overflow:hidden !important;
+  }
+  .mk-zshot{
+    position:absolute !important;inset:0 !important;
+    min-height:0 !important;padding:0 !important;border:none !important;
+    transform:none !important;
+  }
+  .mk-zfog,.mk-fx-dive{filter:none !important;transform:none !important}
+  .mk-rail{display:block !important}
 }
 </style>
 </head>

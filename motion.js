@@ -89,82 +89,106 @@
 
   // Motor de scrollytelling: cada [data-mk-scrolly] recibe --mk-p (progreso 0→1)
   // según su posición en el viewport. Los patrones 3D del CSS beben de esa variable.
+  // Aunque el sistema pida menos movimiento, la película sigue actualizando --mk-p
+  // (slide por opacidad); solo se omiten extras decorativos.
   var scrollies = document.querySelectorAll("[data-mk-scrolly]");
   if (scrollies.length) {
-    if (reduced) {
-      scrollies.forEach(function (s) { s.style.setProperty("--mk-p", 1); });
-    } else {
-      var ticking = false;
-      var updateScrollies = function () {
-        ticking = false;
-        scrollies.forEach(function (s) {
-          var r = s.getBoundingClientRect();
-          // 0 cuando la sección asoma por abajo; 1 cuando su final llega arriba.
-          var total = r.height - innerHeight;
-          var p = total > 0
-            ? -r.top / total                             // sección alta (mk-pin/mk-film): la "película" dura todo el tramo sticky
-            : (innerHeight - r.top) / (innerHeight + r.height); // sección normal: progreso al atravesar el viewport
-          p = Math.max(0, Math.min(1, p));
-          if (s._mkP !== p) {
-            s._mkP = p;
-            s.style.setProperty("--mk-p", p.toFixed(4));
-            // Película: marca el shot en escena (interactividad solo del vivo)
-            if (s.classList.contains("mk-film")) {
-              s.querySelectorAll(".mk-shot").forEach(function (shot) {
-                var inV = parseFloat(shot.style.getPropertyValue("--in")) || 0;
-                var outV = parseFloat(shot.style.getPropertyValue("--out")) || 1;
-                if (p >= inV && p <= outV) shot.setAttribute("data-live", "");
-                else shot.removeAttribute("data-live");
-              });
-              // Túnel 3D: vivo cuando la cámara está cerca de su profundidad
-              var n = parseFloat(s.style.getPropertyValue("--mk-nshots")) || parseFloat(s.dataset.mkShots) || 10;
-              s.querySelectorAll(".mk-zshot").forEach(function (shot) {
-                var zi = parseFloat(shot.style.getPropertyValue("--zi")) || 0;
-                var f = p * (n - 1) - zi;
-                if (f > -0.7 && f < 0.42) shot.setAttribute("data-live", "");
-                else shot.removeAttribute("data-live");
-              });
-            }
-          }
-        });
-      };
-      // data-mk-shots="10" → --mk-shots (duración de la película)
+    var ticking = false;
+    var updateScrollies = function () {
+      ticking = false;
       scrollies.forEach(function (s) {
-        if (s.dataset.mkShots) s.style.setProperty("--mk-shots", s.dataset.mkShots);
+        var r = s.getBoundingClientRect();
+        // 0 cuando la sección asoma por abajo; 1 cuando su final llega arriba.
+        var total = r.height - innerHeight;
+        var p = total > 0
+          ? -r.top / total                             // sección alta (mk-pin/mk-film)
+          : (innerHeight - r.top) / (innerHeight + r.height);
+        p = Math.max(0, Math.min(1, p));
+        if (s._mkP !== p) {
+          s._mkP = p;
+          s.style.setProperty("--mk-p", p.toFixed(4));
+          if (s.classList.contains("mk-film")) {
+            s.querySelectorAll(".mk-shot").forEach(function (shot) {
+              var inV = parseFloat(shot.style.getPropertyValue("--in")) || 0;
+              var outV = parseFloat(shot.style.getPropertyValue("--out")) || 1;
+              if (p >= inV && p <= outV) shot.setAttribute("data-live", "");
+              else shot.removeAttribute("data-live");
+            });
+            var n = parseFloat(s.style.getPropertyValue("--mk-nshots")) || parseFloat(s.dataset.mkShots) || 10;
+            s.querySelectorAll(".mk-zshot").forEach(function (shot) {
+              var zi = parseFloat(shot.style.getPropertyValue("--zi"));
+              if (isNaN(zi)) zi = 0;
+              var f = p * (n - 1) - zi;
+              var live = f > -0.7 && f < 0.42;
+              var near = Math.abs(f) < 1.8;
+              if (live) shot.setAttribute("data-live", "");
+              else shot.removeAttribute("data-live");
+              if (near) shot.setAttribute("data-near", "");
+              else shot.removeAttribute("data-near");
+              // Lazy: activar fotos al acercarse
+              if (near && !shot._mkLazyDone) {
+                shot._mkLazyDone = true;
+                shot.querySelectorAll("img[data-mk-src]").forEach(function (img) {
+                  if (!img.getAttribute("src")) {
+                    img.setAttribute("src", img.getAttribute("data-mk-src"));
+                    img.removeAttribute("data-mk-src");
+                  }
+                });
+              }
+            });
+          }
+        }
       });
-      // Raíl de progreso a la derecha (solo si hay película)
-      var film = document.querySelector(".mk-film");
-      var rail = null;
-      if (film) {
-        rail = document.createElement("div");
-        rail.className = "mk-rail";
-        rail.innerHTML = '<div class="mk-rail-thumb"></div>';
-        document.body.appendChild(rail);
-        var syncRail = function () { rail.style.setProperty("--mk-p", film.style.getPropertyValue("--mk-p") || 0); };
-        addEventListener("scroll", function () { requestAnimationFrame(syncRail); }, { passive: true });
-        syncRail();
-        // Scrubber: pinchar/arrastrar en el raíl mueve la película
-        var dragging = false;
-        var scrub = function (clientY) {
-          var rr = rail.getBoundingClientRect();
-          var ratio = Math.max(0, Math.min(1, (clientY - rr.top) / rr.height));
-          var total = film.offsetHeight - innerHeight;
-          scrollTo(0, film.offsetTop + ratio * total);
-        };
-        rail.addEventListener("pointerdown", function (e) {
-          dragging = true; rail.classList.add("mk-dragging");
-          rail.setPointerCapture(e.pointerId); scrub(e.clientY); e.preventDefault();
-        });
-        rail.addEventListener("pointermove", function (e) { if (dragging) scrub(e.clientY); });
-        addEventListener("pointerup", function () { dragging = false; rail.classList.remove("mk-dragging"); });
-      }
-      addEventListener("scroll", function () {
-        if (!ticking) { ticking = true; requestAnimationFrame(updateScrollies); }
-      }, { passive: true });
-      addEventListener("resize", updateScrollies, { passive: true });
-      addEventListener("load", updateScrollies);
-      updateScrollies();
+    };
+    // data-mk-shots="10" → --mk-shots (duración de la película)
+    scrollies.forEach(function (s) {
+      if (s.dataset.mkShots) s.style.setProperty("--mk-shots", s.dataset.mkShots);
+    });
+    // Lazy inicial: primeros planos cargan ya; el resto espera data-near
+    document.querySelectorAll(".mk-film .mk-zshot").forEach(function (shot) {
+      var zi = parseFloat(shot.style.getPropertyValue("--zi"));
+      if (isNaN(zi)) zi = 0;
+      shot.querySelectorAll("img[src]").forEach(function (img) {
+        if (zi <= 1) {
+          shot._mkLazyDone = true;
+          return;
+        }
+        img.setAttribute("data-mk-src", img.getAttribute("src"));
+        img.removeAttribute("src");
+        img.setAttribute("loading", "lazy");
+      });
+    });
+    // Raíl de progreso a la derecha (solo si hay película)
+    var film = document.querySelector(".mk-film");
+    var rail = null;
+    if (film) {
+      rail = document.createElement("div");
+      rail.className = "mk-rail";
+      rail.innerHTML = '<div class="mk-rail-thumb"></div>';
+      document.body.appendChild(rail);
+      var syncRail = function () { rail.style.setProperty("--mk-p", film.style.getPropertyValue("--mk-p") || 0); };
+      addEventListener("scroll", function () { requestAnimationFrame(syncRail); }, { passive: true });
+      syncRail();
+      var dragging = false;
+      var scrub = function (clientY) {
+        var rr = rail.getBoundingClientRect();
+        var ratio = Math.max(0, Math.min(1, (clientY - rr.top) / rr.height));
+        var total = film.offsetHeight - innerHeight;
+        scrollTo(0, film.offsetTop + ratio * total);
+      };
+      rail.addEventListener("pointerdown", function (e) {
+        dragging = true; rail.classList.add("mk-dragging");
+        rail.setPointerCapture(e.pointerId); scrub(e.clientY); e.preventDefault();
+      });
+      rail.addEventListener("pointermove", function (e) { if (dragging) scrub(e.clientY); });
+      addEventListener("pointerup", function () { dragging = false; rail.classList.remove("mk-dragging"); });
     }
+    addEventListener("scroll", function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateScrollies); }
+    }, { passive: true });
+    addEventListener("resize", updateScrollies, { passive: true });
+    addEventListener("load", updateScrollies);
+    updateScrollies();
   }
 
   // Parallax suave en secciones .mk-parallax (fallback iOS ya en CSS)
