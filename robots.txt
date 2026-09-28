@@ -1,4 +1,8 @@
+# Sol Querandí — robots
+# Contenido para buscadores e IA: /llms.txt
+
 User-agent: *
 Allow: /
+Allow: /llms.txt
 
 Sitemap: https://solquerandi.com/sitemap.xml

@@ -30,6 +30,9 @@ jobs:
           cp index.html motion.css motion.js robots.txt sitemap.xml llms.txt _site/
           cp -a assets _site/assets
           printf '%s\n' 'solquerandi.com' > _site/CNAME
+          # IndexNow: la clave debe vivir en la raiz del sitio publicado
+          KEY=b7e4c91a2f0d48e6a3c15d9e8f2b4a70
+          cp "${KEY}.txt" "_site/${KEY}.txt"
 
       - name: Configurar Pages
         uses: actions/configure-pages@v5
@@ -42,3 +45,13 @@ jobs:
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Avisar a IndexNow (Bing y otros)
+        if: success()
+        run: |
+          KEY=b7e4c91a2f0d48e6a3c15d9e8f2b4a70
+          curl -sS -o /tmp/indexnow-out.txt -w "%{http_code}" \
+            "https://api.indexnow.org/indexnow?url=https%3A%2F%2Fsolquerandi.com%2F&key=${KEY}" \
+            > /tmp/indexnow-status.txt || true
+          echo "IndexNow HTTP $(cat /tmp/indexnow-status.txt)"
+          cat /tmp/indexnow-out.txt || true
