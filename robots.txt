@@ -1,8 +1,13 @@
-# Sol Querandí — robots
-# Contenido para buscadores e IA: /llms.txt
-
 User-agent: *
 Allow: /
 Allow: /llms.txt
+Allow: /sitemap.xml
+Allow: /assets/
+
+# Preferencias para rastreo
+Disallow: /original/
 
 Sitemap: https://solquerandi.com/sitemap.xml
+
+# Host canónico (Bing / Yandex)
+Host: https://solquerandi.com

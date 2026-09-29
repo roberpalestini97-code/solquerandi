@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://solquerandi.com/</loc>
-    <lastmod>2026-09-28</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://solquerandi.com/assets/social.jpg</image:loc>
+      <image:title>Sol Querandí · Cabañas en Parque Lago, Mar de Cobo</image:title>
+      <image:caption>Cabañas frente al mar a 100 m de la playa, Parque Lago, Mar de Cobo</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://solquerandi.com/assets/logo.png</image:loc>
+      <image:title>Logo Sol Querandí</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://solquerandi.com/assets/hero-front.jpg</image:loc>
+      <image:title>Frente de las cabañas Sol Querandí</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://solquerandi.com/assets/booking-2026.png</image:loc>
+      <image:title>Booking.com Traveller Review Awards 2026</image:title>
+    </image:image>
   </url>
 </urlset>

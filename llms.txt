@@ -7,18 +7,50 @@
 
 ## Datos clave
 
+- Nombre: Sol Querandí
+- Tipo: cabañas / alojamiento temporario (LodgingBusiness)
 - Dirección: Santa Elena 174, Parque Lago, Mar de Cobo, Buenos Aires, Argentina
 - Coordenadas: -37.76861, -57.44656
 - A 100 m de la playa, frente a la costa
-- A 700 m del centro de Mar de Cobo, a 30 km de Mar del Plata
-- Cabañas: Antú (6 personas, vista al mar), Cuyen (6 personas, vista al mar), Saráh (4 personas)
-- Todas con cocina equipada, WiFi y DirecTV
-- Calificación: 9,7/10 en Booking.com (Traveller Review Awards 2023)
-- Contacto: WhatsApp +54 9 223 529-0743 · email solquerandi@gmail.com
+- A 700 m del centro de Mar de Cobo
+- A 5 km de Mar Chiquita · A 30 km de Mar del Plata · A 75 km de Villa Gesell
+- Idioma del sitio: español (es-AR)
+
+## Cabañas
+
+- Antú — hasta 6 personas. Suite matrimonial con baño completo y balcón con vista al mar y a la costa norte hasta Mar Chiquita. Sofá cama y cama plegable. Otro baño en planta baja. Cocina equipada, comedor, dos TV Smart 32", WiFi, DirecTV. Jardín con parrilla techada, mesa matera y pérgola para el vehículo.
+- Cuyen — hasta 6 personas. Misma tipología de suite con balcón al mar, patio propio y acceso independiente. Cocina equipada, WiFi, DirecTV, parrilla y jardín.
+- Saráh — hasta 4 personas. Dormitorio amplio con cama King 1,60 m, baño completo y dos camas cuchetas (se puede sumar cama plegable). Cocina eléctrica, microondas, cafetera, pava y tostadora. Patio cerrado con parrilla y jardín.
+
+## Servicios
+
+Vista al mar · Frente a la costa · Patio o balcón privado · Cocina y comedor equipados · Parrilla · WiFi · DirecTV · Calefacción · Ventilador de techo · Pérgola para estacionar · Extintor · Check-in sin restricción de horario · Limpieza durante la estadía · Estadías largas · Ropa blanca incluida
+
+## Premios y reputación
+
+- Booking.com Traveller Review Awards 2023 — 9,7 / 10
+- Booking.com Traveller Review Awards 2026 — 10,0 / 10
+- Índice de respuesta: 100% · Tiempo de respuesta: en pocas horas
+- Valoración agregada en el sitio: 4,9 / 5 (más de 10 opiniones en Google)
+
+## Contacto y reserva
+
+- WhatsApp: +54 9 223 529-0743 (https://wa.me/5492235290743)
+- Email: solquerandi@gmail.com
 - Instagram: https://www.instagram.com/solquerandi/
 - Facebook: https://www.facebook.com/solquerandi
+- Check-in: sin restricción de horario
+- Cómo reservar: consultar fechas y cantidad de personas por WhatsApp o email
+
+## Ubicación y entorno
+
+Parque Lago es un lugar privilegiado frente a la albufera de Mar Chiquita. La playa de unos 4 km que une Parque Lago con Mar Chiquita se recorre a pie o en vehículo: sol, pesca, kayak, surf y kite. A 700 m está el centro de Mar de Cobo (supermercados, panaderías, cervecerías). A 30 km, Mar del Plata.
 
 ## Sitio
 
 - Web: https://solquerandi.com/
+- Canonical: https://solquerandi.com/
 - Preguntas frecuentes: https://solquerandi.com/#preguntas-frecuentes
+- Sitemap: https://solquerandi.com/sitemap.xml
+- Robots: https://solquerandi.com/robots.txt
+- Imagen social: https://solquerandi.com/assets/social.jpg
